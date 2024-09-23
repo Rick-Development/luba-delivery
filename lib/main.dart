@@ -20,41 +20,32 @@ import 'package:get/get.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'helper/get_di.dart' as di;
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
-  if(!GetPlatform.isWeb) {
+  if (!GetPlatform.isWeb) {
     HttpOverrides.global = MyHttpOverrides();
   }
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
 
-  if(GetPlatform.isAndroid) {
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: "AIzaSyCic6Mw3RRPFcimXhwGidwhCN0tXY7HFFc",
-        appId: "1:1000163153346:android:9d8caf29b912e11606b25b",
-        messagingSenderId: "1000163153346",
-        projectId: "ammart-8885e",
-      ),
-    );
-  }else {
-    await Firebase.initializeApp();
-  }
+  await Firebase.initializeApp();
 
   Map<String, Map<String, String>> languages = await di.init();
 
   NotificationBodyModel? body;
   try {
     if (GetPlatform.isMobile) {
-      final RemoteMessage? remoteMessage = await FirebaseMessaging.instance.getInitialMessage();
-      if(remoteMessage != null){
+      final RemoteMessage? remoteMessage =
+          await FirebaseMessaging.instance.getInitialMessage();
+      if (remoteMessage != null) {
         body = NotificationHelper.convertNotification(remoteMessage.data);
       }
       await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
       FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
     }
-  }catch(_) {}
+  } catch (_) {}
 
   runApp(MyApp(languages: languages, body: body));
 }
@@ -76,7 +67,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(GetPlatform.isWeb) {
+    if (GetPlatform.isWeb) {
       Get.find<SplashController>().initSharedData();
       _route();
     }
@@ -92,22 +83,28 @@ class MyApp extends StatelessWidget {
     return GetBuilder<ThemeController>(builder: (themeController) {
       return GetBuilder<LocalizationController>(builder: (localizeController) {
         return GetBuilder<SplashController>(builder: (splashController) {
-          return (GetPlatform.isWeb && splashController.configModel == null) ? const SizedBox() : GetMaterialApp(
-            title: AppConstants.appName,
-            debugShowCheckedModeBanner: false,
-            navigatorKey: Get.key,
-            theme: themeController.darkTheme ? dark : light,
-            locale: localizeController.locale,
-            translations: Messages(languages: languages),
-            fallbackLocale: Locale(AppConstants.languages[0].languageCode!, AppConstants.languages[0].countryCode),
-            initialRoute: RouteHelper.getSplashRoute(body),
-            getPages: RouteHelper.routes,
-            defaultTransition: Transition.topLevel,
-            transitionDuration: const Duration(milliseconds: 500),
-            builder: (BuildContext context, widget) {
-              return MediaQuery(data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1)), child: widget!);
-            }
-          );
+          return (GetPlatform.isWeb && splashController.configModel == null)
+              ? const SizedBox()
+              : GetMaterialApp(
+                  title: AppConstants.appName,
+                  debugShowCheckedModeBanner: false,
+                  navigatorKey: Get.key,
+                  theme: themeController.darkTheme ? dark : light,
+                  locale: localizeController.locale,
+                  translations: Messages(languages: languages),
+                  fallbackLocale: Locale(
+                      AppConstants.languages[0].languageCode!,
+                      AppConstants.languages[0].countryCode),
+                  initialRoute: RouteHelper.getSplashRoute(body),
+                  getPages: RouteHelper.routes,
+                  defaultTransition: Transition.topLevel,
+                  transitionDuration: const Duration(milliseconds: 500),
+                  builder: (BuildContext context, widget) {
+                    return MediaQuery(
+                        data: MediaQuery.of(context)
+                            .copyWith(textScaler: const TextScaler.linear(1)),
+                        child: widget!);
+                  });
         });
       });
     });
@@ -117,6 +114,8 @@ class MyApp extends StatelessWidget {
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
