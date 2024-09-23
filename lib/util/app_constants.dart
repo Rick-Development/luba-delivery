@@ -2,7 +2,7 @@ import 'package:sixam_mart_delivery/features/language/domain/models/language_mod
 import 'package:sixam_mart_delivery/util/images.dart';
 
 class AppConstants {
-  static const String appName = 'Luna Delivery';
+  static const String appName = 'Luba Delivery';
   static const double appVersion = 2.9;
 
   ///Flutter sdk 3.22.3
