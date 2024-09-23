@@ -1,4 +1,4 @@
-package com.sixamtech.sixam_mart_delivery_app
+package com.rickdevelopement.geniztech.delivery.luna
 
 import android.app.Activity
 import android.app.Application

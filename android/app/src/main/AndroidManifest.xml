@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sixamtech.sixam_mart_delivery_app"
+    package="com.rickdevelopement.geniztech.delivery.luna"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -77,7 +77,7 @@
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <service
-            android:name="com.sixamtech.sixam_mart_delivery_app.BackgroundService"
+            android:name="com.rickdevelopement.geniztech.delivery.luna.BackgroundService"
             android:enabled="true"
             android:exported="false" />
         <meta-data
