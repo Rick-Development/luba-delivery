@@ -2,12 +2,12 @@ import 'package:sixam_mart_delivery/features/language/domain/models/language_mod
 import 'package:sixam_mart_delivery/util/images.dart';
 
 class AppConstants {
-  static const String appName = '6amMart Delivery';
+  static const String appName = 'Luna Delivery';
   static const double appVersion = 2.9;
 
   ///Flutter sdk 3.22.3
 
-  static const String baseUrl = 'https://luna.mpaxx.com.ng/';
+  static const String baseUrl = 'https://luna.mpaxx.com.ng';
 
   static const String configUri = '/api/v1/config';
   static const String forgetPasswordUri =

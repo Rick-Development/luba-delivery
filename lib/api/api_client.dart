@@ -47,6 +47,7 @@ class ApiClient extends GetxService {
   }) async {
     try {
       debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+      debugPrint("headers:  ${headers!.isEmpty}");
       http.Response response = await http
           .get(
             Uri.parse(appBaseUrl + uri),
